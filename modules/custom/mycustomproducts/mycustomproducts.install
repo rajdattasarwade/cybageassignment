@@ -1,0 +1,50 @@
+<?php
+
+use Drupal\node\Entity\Node;
+use Drupal\block\Entity\Block;
+
+function mycustomproducts_install() {
+  $data = file_get_contents(__DIR__ . '/images/unicorn.jpg');
+  $file = file_save_data($data, 'public://unicorn.jpg');
+
+  $node = Node::create([
+    'type' => 'products',
+    'uid' => 1,
+    'revision' => 0,
+    'status' => TRUE,
+    'promote' => 0,
+    'created' => time(),
+    'langcode' => 'en',
+    'title' => 'Unicorn Iron on Patch',
+    'field_image' => [
+     'target_id' => $file->id(),
+     'alt'       => 'Unicorn',
+     'title'     => 'Unicorn Iron Patch',
+   ],
+   'field_product_link' => [
+     'uri' => "internal:/products/unicorn-iron-patch",
+     'alt'       => 'Unicorn',
+     'title'     => 'Unicorn Iron Patch',
+   ],
+ ]);
+  
+  $node->set('body', [
+    'value' => '<p>Size is approx. 3-3/8" x 4 "</p><p>High Quality, detailed <em style="color:red;">embroidery applique</em><br><b>Can be sewn or ironed on.</b><br>Great for hats,bags, clothing, and more!</p><p>Or you could also just stick it to your forehead!</p>',
+    'format' => 'basic_html'
+  ]);
+  
+  $node->save();
+  
+  $source = '/node/' . $node->get('nid')->value;
+  //\Drupal::service('path_alias.storage')->save($source, '/products/unicorn-iron-patch', 'en');
+  $path_alias = \Drupal::entityTypeManager()->getStorage('path_alias')->create([
+   'path' => $source,
+   'alias' => '/products/unicorn-iron-patch',
+   'langcode' => 'en',
+ ]);
+  $path_alias->save();
+
+  /*$block = Block::load('productqrcode');
+  $block->setRegion('sidebar_second');
+  $block->save();*/
+}

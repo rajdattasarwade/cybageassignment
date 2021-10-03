@@ -1,0 +1,31 @@
+# core.entity_view_display.node.products.teaser.yml
+langcode: en
+status: true
+dependencies:
+    config:
+        - core.entity_view_mode.node.teaser
+        - field.field.node.products.body
+        - field.field.node.products.field_image
+        - field.field.node.products.field_product_link
+        - node.type.products
+    module:
+        - text
+        - user
+id: node.products.teaser
+targetEntityType: node
+bundle: products
+mode: teaser
+content:
+    body:
+        label: hidden
+        type: text_summary_or_trimmed
+        weight: 101
+        settings:
+            trim_length: 600
+        third_party_settings: {  }
+    links:
+        weight: 100
+hidden:
+  field_image: true
+  field_product_link: true
+  langcode: true

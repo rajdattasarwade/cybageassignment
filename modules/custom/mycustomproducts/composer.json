@@ -1,0 +1,17 @@
+{
+    "name": "drupal/mycustomproducts",
+    "description": "Creation of custom content type products and blocks for placing qr code for products",
+    "type": "drupal-module",
+    "keywords": ["Drupal"],
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "rajdatta.sarwade",
+            "email": "rajdattatestemail@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "endroid/qr-code": "^4.3"
+    }
+}
